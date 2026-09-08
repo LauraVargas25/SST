@@ -1,0 +1,1550 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Riesgo Biológico - Actividad Interactiva</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* =====================================================
+       PALETA DE COLORES - RIESGO BIOLÓGICO
+    ===================================================== */
+
+    :root {
+        --verde-oscuro: #263b2b;
+        --verde: #3f6b45;
+        --verde-claro: #dfeade;
+
+        --amarillo-seguridad: #e6b93f;
+        --amarillo-claro: #fff4c7;
+
+        --rojo-riesgo: #8f3d3d;
+        --rojo-claro: #f7dddd;
+
+        --vinotinto: #642f35;
+
+        --crema: #f5f1e8;
+        --blanco: #ffffff;
+
+        --gris: #5f665f;
+        --borde: #c9c8bd;
+    }
+
+
+    body {
+        margin: 0;
+
+        font-family: Arial, Helvetica, sans-serif;
+
+        background:
+            radial-gradient(
+                circle at top left,
+                #e8eadb,
+                transparent 45%
+            ),
+            linear-gradient(
+                135deg,
+                #f5f1e8,
+                #dfe6d8
+            );
+
+        color: var(--verde-oscuro);
+
+        min-height: 100vh;
+    }
+
+
+    /* =====================================================
+       PANTALLAS
+    ===================================================== */
+
+    .screen {
+        display: none;
+
+        min-height: 100vh;
+
+        padding: 40px 5vw;
+    }
+
+
+    .screen.active {
+        display: flex;
+    }
+
+
+    /* =====================================================
+       PORTADA
+    ===================================================== */
+
+    #intro {
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+    }
+
+
+    .intro-card {
+
+        width: min(950px, 100%);
+
+        padding: 55px 45px 60px;
+
+        background: rgba(255,255,255,0.96);
+
+        border-radius: 32px;
+
+        box-shadow:
+            0 20px 60px rgba(38,59,43,0.18);
+
+        border:
+            3px solid rgba(230,185,63,0.45);
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+
+    /* Franja superior de seguridad */
+
+    .intro-card::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 12px;
+
+        background:
+            repeating-linear-gradient(
+                -45deg,
+                var(--amarillo-seguridad),
+                var(--amarillo-seguridad) 18px,
+                var(--verde-oscuro) 18px,
+                var(--verde-oscuro) 36px
+            );
+    }
+
+
+    /* =====================================================
+       PERSONA SST
+    ===================================================== */
+
+    .sst-container {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 25px;
+
+        margin-bottom: 25px;
+
+        text-align: left;
+    }
+
+
+    /* Persona */
+
+    .sst-person {
+
+        position: relative;
+
+        width: 135px;
+
+        min-width: 135px;
+
+        height: 190px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: flex-end;
+    }
+
+
+    /* Cabeza */
+
+    .sst-head {
+
+        width: 72px;
+        height: 72px;
+
+        background: #e7b98a;
+
+        border-radius: 50%;
+
+        position: relative;
+
+        z-index: 2;
+
+        border: 4px solid #263b2b;
+    }
+
+
+    /* Cabello */
+
+    .sst-head::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: -5px;
+        left: 4px;
+
+        width: 56px;
+        height: 25px;
+
+        background: #3a2a20;
+
+        border-radius: 50% 50% 30% 30%;
+    }
+
+
+    /* Ojos */
+
+    .sst-head::after {
+
+        content: "•  •";
+
+        position: absolute;
+
+        top: 30px;
+        left: 18px;
+
+        font-size: 16px;
+
+        letter-spacing: 5px;
+
+        color: #263b2b;
+    }
+
+
+    /* Casco */
+
+    .sst-helmet {
+
+        position: absolute;
+
+        top: 0;
+
+        width: 92px;
+        height: 42px;
+
+        background: var(--amarillo-seguridad);
+
+        border-radius: 55px 55px 15px 15px;
+
+        border: 4px solid var(--verde-oscuro);
+
+        z-index: 3;
+    }
+
+
+    .sst-helmet::after {
+
+        content: "";
+
+        position: absolute;
+
+        bottom: -8px;
+        left: -8px;
+
+        width: 100px;
+        height: 12px;
+
+        background: var(--amarillo-seguridad);
+
+        border: 4px solid var(--verde-oscuro);
+
+        border-radius: 20px;
+    }
+
+
+    /* Cuerpo / chaleco */
+
+    .sst-body {
+
+        width: 110px;
+        height: 85px;
+
+        background: var(--verde);
+
+        border-radius: 25px 25px 12px 12px;
+
+        border: 4px solid var(--verde-oscuro);
+
+        position: relative;
+
+        margin-top: 5px;
+    }
+
+
+    /* Franjas del chaleco */
+
+    .sst-body::before {
+
+        content: "";
+
+        position: absolute;
+
+        left: 15px;
+        right: 15px;
+
+        top: 35px;
+
+        height: 9px;
+
+        background: var(--amarillo-seguridad);
+
+        border-radius: 5px;
+    }
+
+
+    .sst-body::after {
+
+        content: "SST";
+
+        position: absolute;
+
+        top: 12px;
+        left: 0;
+        right: 0;
+
+        text-align: center;
+
+        color: white;
+
+        font-weight: bold;
+
+        font-size: 18px;
+    }
+
+
+    /* =====================================================
+       GLOBO DE DIÁLOGO
+    ===================================================== */
+
+    .speech {
+
+        position: relative;
+
+        max-width: 590px;
+
+        background: var(--verde-oscuro);
+
+        color: white;
+
+        padding: 22px 25px;
+
+        border-radius: 22px;
+
+        box-shadow:
+            0 10px 25px rgba(38,59,43,0.18);
+    }
+
+
+    .speech::before {
+
+        content: "";
+
+        position: absolute;
+
+        left: -14px;
+        top: 38px;
+
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+
+        border-right: 16px solid var(--verde-oscuro);
+    }
+
+
+    .speech strong {
+
+        color: var(--amarillo-seguridad);
+
+        font-size: 20px;
+    }
+
+
+    .speech p {
+
+        margin: 8px 0 0;
+
+        font-size: 18px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       ICONO BIOLOGICO
+    ===================================================== */
+
+    .biohazard {
+
+        font-size: 70px;
+
+        margin: 5px 0;
+    }
+
+
+    h1 {
+
+        font-size: clamp(42px, 7vw, 76px);
+
+        margin: 5px 0;
+
+        color: var(--verde-oscuro);
+    }
+
+
+    .subtitle {
+
+        font-size: clamp(24px, 4vw, 38px);
+
+        margin: 0 0 35px;
+
+        color: var(--rojo-riesgo);
+
+        font-weight: bold;
+    }
+
+
+    /* =====================================================
+       BOTONES
+    ===================================================== */
+
+    button {
+
+        border: none;
+
+        border-radius: 14px;
+
+        padding: 16px 30px;
+
+        font-size: 18px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        background: var(--rojo-riesgo);
+
+        color: white;
+
+        box-shadow:
+            0 8px 18px rgba(143,61,61,0.25);
+
+        transition: 0.2s;
+    }
+
+
+    button:hover {
+
+        transform: translateY(-2px);
+
+        background: var(--vinotinto);
+    }
+
+
+    /* =====================================================
+       ACTIVIDAD
+    ===================================================== */
+
+    #game {
+
+        flex-direction: column;
+
+        gap: 20px;
+    }
+
+
+    .header {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        gap: 20px;
+    }
+
+
+    .header h2 {
+
+        margin: 0;
+
+        font-size: 32px;
+
+        color: var(--verde-oscuro);
+    }
+
+
+    .progress {
+
+        margin-top: 8px;
+
+        font-weight: bold;
+
+        color: var(--rojo-riesgo);
+    }
+
+
+    .instructions {
+
+        background: var(--amarillo-claro);
+
+        border-left:
+            7px solid var(--amarillo-seguridad);
+
+        border-radius: 12px;
+
+        padding: 17px 20px;
+
+        box-shadow:
+            0 5px 20px rgba(38,59,43,0.08);
+
+        color: var(--verde-oscuro);
+    }
+
+
+    /* =====================================================
+       SECTORES
+    ===================================================== */
+
+    .boards {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 18px;
+
+        flex: 1;
+    }
+
+
+    .sector {
+
+        background: white;
+
+        border-radius: 20px;
+
+        padding: 18px;
+
+        box-shadow:
+            0 8px 25px rgba(38,59,43,0.10);
+
+        min-height: 250px;
+
+        border:
+            3px solid transparent;
+
+        transition: 0.2s;
+    }
+
+
+    .sector:hover {
+
+        border-color:
+            rgba(230,185,63,0.6);
+    }
+
+
+    .sector h3 {
+
+        margin: 0 0 12px;
+
+        color: var(--verde);
+
+        font-size: 22px;
+    }
+
+
+    .dropzone {
+
+        min-height: 150px;
+
+        border:
+            2px dashed var(--borde);
+
+        border-radius: 14px;
+
+        padding: 12px;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        align-content: flex-start;
+
+        gap: 8px;
+
+        background: #faf9f3;
+
+        transition: 0.2s;
+    }
+
+
+    .dropzone.over {
+
+        border-color:
+            var(--amarillo-seguridad);
+
+        background:
+            var(--amarillo-claro);
+    }
+
+
+    /* =====================================================
+       BANCO DE OPCIONES
+    ===================================================== */
+
+    .bank {
+
+        background:
+            linear-gradient(
+                135deg,
+                var(--verde-oscuro),
+                var(--verde)
+            );
+
+        border-radius: 20px;
+
+        padding: 18px;
+
+        color: white;
+
+        border-top:
+            5px solid var(--amarillo-seguridad);
+    }
+
+
+    .bank h3 {
+
+        margin: 0 0 12px;
+    }
+
+
+    .options {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+    }
+
+
+    .item {
+
+        background: white;
+
+        color: var(--verde-oscuro);
+
+        padding: 11px 14px;
+
+        border-radius: 12px;
+
+        cursor: grab;
+
+        font-weight: bold;
+
+        box-shadow:
+            0 3px 8px rgba(0,0,0,0.15);
+
+        user-select: none;
+
+        touch-action: none;
+
+        transition: 0.2s;
+    }
+
+
+    .item:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 5px 12px rgba(0,0,0,0.20);
+    }
+
+
+    .item:active {
+
+        cursor: grabbing;
+    }
+
+
+    /* Correcto */
+
+    .item.correct {
+
+        background: #dcefdc;
+
+        border:
+            2px solid #4c914c;
+
+        color: #245c2b;
+
+        cursor: default;
+    }
+
+
+    /* Incorrecto */
+
+    .item.wrong {
+
+        animation: shake 0.3s;
+
+        border:
+            2px solid var(--rojo-riesgo);
+    }
+
+
+    @keyframes shake {
+
+        25% {
+            transform: translateX(-6px);
+        }
+
+        50% {
+            transform: translateX(6px);
+        }
+
+        75% {
+            transform: translateX(-6px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+
+    /* =====================================================
+       MENSAJE
+    ===================================================== */
+
+    #feedback {
+
+        text-align: center;
+
+        font-weight: bold;
+
+        min-height: 24px;
+
+        font-size: 17px;
+    }
+
+
+    /* =====================================================
+       FINAL
+    ===================================================== */
+
+    .success {
+
+        position: fixed;
+
+        inset: 0;
+
+        background:
+            rgba(38,59,43,0.88);
+
+        display: none;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 25px;
+
+        z-index: 100;
+    }
+
+
+    .success-card {
+
+        background: white;
+
+        border-radius: 25px;
+
+        padding: 45px;
+
+        text-align: center;
+
+        max-width: 550px;
+
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.25);
+
+        border-top:
+            8px solid var(--amarillo-seguridad);
+    }
+
+
+    .success-card h2 {
+
+        color: var(--verde);
+
+        font-size: 36px;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 750px) {
+
+        .boards {
+
+            grid-template-columns: 1fr;
+        }
+
+
+        .screen {
+
+            padding: 25px 4vw;
+        }
+
+
+        .header {
+
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+
+        .sst-container {
+
+            flex-direction: column;
+        }
+
+
+        .speech {
+
+            text-align: center;
+        }
+
+
+        .speech::before {
+
+            display: none;
+        }
+    }
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     PÁGINA 1 - INTRODUCCIÓN SST
+================================================== -->
+
+<section id="intro" class="screen active">
+
+    <div class="intro-card">
+
+
+        <!-- PERSONA SST -->
+
+        <div class="sst-container">
+
+
+            <div class="sst-person">
+
+                <div class="sst-helmet"></div>
+
+                <div class="sst-head"></div>
+
+                <div class="sst-body"></div>
+
+            </div>
+
+
+            <div class="speech">
+
+                <strong>
+                    👷‍♀️ Responsable de SST
+                </strong>
+
+                <p>
+                    ¡Hola! Antes de comenzar, recuerda que
+                    identificar correctamente las medidas de
+                    prevención es fundamental para controlar
+                    el riesgo biológico.
+                </p>
+
+                <p>
+                    <b>
+                        Cuando estés listo, continúa con la actividad.
+                    </b>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ICONO -->
+
+        <div class="biohazard">
+            ☣️
+        </div>
+
+
+        <h1>
+            Riesgo Biológico
+        </h1>
+
+
+        <p class="subtitle">
+            Vamos a clasificar
+        </p>
+
+
+        <button onclick="startGame()">
+            Continuar con el juego →
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     PÁGINA 2 - ACTIVIDAD
+================================================== -->
+
+<section id="game" class="screen">
+
+
+    <div class="header">
+
+        <div>
+
+            <h2>
+                Clasifica las medidas de prevención
+            </h2>
+
+            <div
+                class="progress"
+                id="progress">
+
+                0 de 10 clasificados
+
+            </div>
+
+        </div>
+
+
+        <button onclick="resetGame()">
+            Reiniciar
+        </button>
+
+    </div>
+
+
+
+    <div class="instructions">
+
+        <strong>
+            🛡️ Instrucciones:
+        </strong>
+
+        Arrastra cada opción de la parte inferior
+        hasta el sector al que corresponde.
+
+        Si la respuesta es correcta,
+        quedará marcada en verde.
+
+    </div>
+
+
+
+    <!-- ==================================================
+         SECTORES
+    ================================================== -->
+
+    <div class="boards">
+
+
+        <!-- SECTOR SALUD -->
+
+        <div
+            class="sector"
+            data-sector="salud">
+
+            <h3>
+                🏥 Sector Salud
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+
+
+        <!-- JARDINES -->
+
+        <div
+            class="sector"
+            data-sector="jardines">
+
+            <h3>
+                🧸 Jardines Infantiles
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+
+
+        <!-- ALIMENTARIA -->
+
+        <div
+            class="sector"
+            data-sector="alimentos">
+
+            <h3>
+                🍎 Industria Alimentaria
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+
+
+        <!-- ASEO -->
+
+        <div
+            class="sector"
+            data-sector="aseo">
+
+            <h3>
+                🧹 Sector Aseo
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         BANCO DE OPCIONES
+    ================================================== -->
+
+    <div class="bank">
+
+        <h3>
+            ☣️ Opciones para arrastrar
+        </h3>
+
+        <div
+            class="options"
+            id="options">
+        </div>
+
+    </div>
+
+
+    <div id="feedback"></div>
+
+
+</section>
+
+
+
+<!-- ==================================================
+     MENSAJE FINAL
+================================================== -->
+
+<div
+    class="success"
+    id="success">
+
+    <div class="success-card">
+
+        <div style="font-size:60px">
+            🎉
+        </div>
+
+        <h2>
+            ¡Excelente trabajo!
+        </h2>
+
+        <p>
+            Has clasificado correctamente todas
+            las medidas de prevención del
+            riesgo biológico.
+        </p>
+
+        <button onclick="resetGame()">
+            Volver a intentar
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   CLASIFICACIÓN CORRECTA
+===================================================== */
+
+const items = [
+
+    /* SECTOR SALUD */
+
+    {
+        text: "Elementos de protección personal",
+        sector: "salud"
+    },
+
+    {
+        text: "Manejo de residuos",
+        sector: "salud"
+    },
+
+    {
+        text: "Vacunación al personal",
+        sector: "salud"
+    },
+
+
+    /* JARDINES INFANTILES */
+
+    {
+        text: "Higiene",
+        sector: "jardines"
+    },
+
+    {
+        text: "Vacunación",
+        sector: "jardines"
+    },
+
+    {
+        text: "Ventilación adecuada",
+        sector: "jardines"
+    },
+
+
+    /* INDUSTRIA ALIMENTARIA */
+
+    {
+        text: "Separación de alimentos",
+        sector: "alimentos"
+    },
+
+    {
+        text: "Lavado de manos",
+        sector: "alimentos"
+    },
+
+
+    /* SECTOR ASEO */
+
+    {
+        text: "Manejo de basuras",
+        sector: "aseo"
+    },
+
+    {
+        text: "Desinfectantes",
+        sector: "aseo"
+    }
+
+];
+
+
+let placed = 0;
+
+
+
+/* =====================================================
+   INICIAR ACTIVIDAD
+===================================================== */
+
+function startGame() {
+
+    document
+        .getElementById("intro")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("game")
+        .classList
+        .add("active");
+
+
+    buildItems();
+
+}
+
+
+
+/* =====================================================
+   CREAR OPCIONES
+===================================================== */
+
+function buildItems() {
+
+    placed = 0;
+
+
+    document
+        .getElementById("progress")
+        .textContent =
+        "0 de 10 clasificados";
+
+
+    document
+        .getElementById("feedback")
+        .textContent = "";
+
+
+    document
+        .querySelectorAll(".dropzone")
+        .forEach(zone => {
+
+            zone.innerHTML = "";
+
+        });
+
+
+    const options =
+        document.getElementById("options");
+
+
+    options.innerHTML = "";
+
+
+    /*
+       Mezclar opciones
+    */
+
+    [...items]
+        .sort(() => Math.random() - 0.5)
+        .forEach((item, index) => {
+
+
+            const element =
+                document.createElement("div");
+
+
+            element.className =
+                "item";
+
+
+            element.textContent =
+                item.text;
+
+
+            element.draggable = true;
+
+
+            element.dataset.sector =
+                item.sector;
+
+
+            element.id =
+                "item-" + index;
+
+
+
+            /*
+               Comienza el arrastre
+            */
+
+            element.addEventListener(
+                "dragstart",
+                function(event) {
+
+                    event.dataTransfer
+                        .setData(
+                            "text/plain",
+                            element.id
+                        );
+
+                }
+            );
+
+
+            options.appendChild(element);
+
+        });
+
+}
+
+
+
+/* =====================================================
+   ZONAS DE DESTINO
+===================================================== */
+
+document
+    .querySelectorAll(".dropzone")
+    .forEach(zone => {
+
+
+        zone.addEventListener(
+            "dragover",
+            function(event) {
+
+                event.preventDefault();
+
+                zone.classList.add("over");
+
+            }
+        );
+
+
+
+        zone.addEventListener(
+            "dragleave",
+            function() {
+
+                zone.classList.remove("over");
+
+            }
+        );
+
+
+
+        zone.addEventListener(
+            "drop",
+            function(event) {
+
+                event.preventDefault();
+
+
+                zone.classList.remove("over");
+
+
+                /*
+                   Obtener elemento
+                */
+
+                const id =
+                    event.dataTransfer
+                        .getData("text/plain");
+
+
+                const item =
+                    document.getElementById(id);
+
+
+                if (!item) {
+                    return;
+                }
+
+
+
+                /*
+                   Sector seleccionado
+                */
+
+                const selectedSector =
+                    zone
+                        .closest(".sector")
+                        .dataset.sector;
+
+
+
+                /*
+                   Sector correcto
+                */
+
+                const correctSector =
+                    item.dataset.sector;
+
+
+
+                /* =====================================
+                   RESPUESTA CORRECTA
+                ===================================== */
+
+                if (
+                    correctSector === selectedSector
+                ) {
+
+
+                    zone.appendChild(item);
+
+
+                    item.classList.add("correct");
+
+
+                    item.draggable = false;
+
+
+                    placed++;
+
+
+                    document
+                        .getElementById("progress")
+                        .textContent =
+                        placed +
+                        " de 10 clasificados";
+
+
+                    document
+                        .getElementById("feedback")
+                        .textContent =
+                        "✓ ¡Correcto! Muy bien.";
+
+
+                    document
+                        .getElementById("feedback")
+                        .style.color =
+                        "#3f6b45";
+
+
+
+                    /*
+                       Actividad terminada
+                    */
+
+                    if (placed === 10) {
+
+                        setTimeout(
+                            function() {
+
+                                document
+                                    .getElementById(
+                                        "success"
+                                    )
+                                    .style.display =
+                                    "flex";
+
+                            },
+                            500
+                        );
+
+                    }
+
+                }
+
+
+
+                /* =====================================
+                   RESPUESTA INCORRECTA
+                ===================================== */
+
+                else {
+
+
+                    item.classList.add("wrong");
+
+
+                    document
+                        .getElementById("feedback")
+                        .textContent =
+                        "✗ No corresponde a este sector. Inténtalo nuevamente.";
+
+
+                    document
+                        .getElementById("feedback")
+                        .style.color =
+                        "#8f3d3d";
+
+
+                    setTimeout(
+                        function() {
+
+                            item.classList.remove(
+                                "wrong"
+                            );
+
+                        },
+                        350
+                    );
+
+                }
+
+            }
+
+        );
+
+    });
+
+
+
+/* =====================================================
+   REINICIAR
+===================================================== */
+
+function resetGame() {
+
+    document
+        .getElementById("success")
+        .style.display =
+        "none";
+
+
+    /*
+       Volver a mostrar portada
+       al reiniciar completamente.
+    */
+
+    document
+        .getElementById("game")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("intro")
+        .classList
+        .add("active");
+
+
+    buildItems();
+
+}
+
+</script>
+
+</body>
+</html>
+```
