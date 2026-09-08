@@ -8,874 +8,726 @@
 
 <style>
 
-    * {
-        box-sizing: border-box;
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --verde-oscuro: #263b2b;
+    --verde: #3f6b45;
+    --verde-claro: #dfeade;
+    --amarillo-seguridad: #e6b93f;
+    --amarillo-claro: #fff4c7;
+    --rojo-riesgo: #8f3d3d;
+    --rojo-claro: #f7dddd;
+    --vinotinto: #642f35;
+    --crema: #f5f1e8;
+    --blanco: #ffffff;
+    --gris: #5f665f;
+    --borde: #c9c8bd;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #e8eadb,
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #f5f1e8,
+            #dfe6d8
+        );
+
+    color: var(--verde-oscuro);
+    min-height: 100vh;
+}
+
+/* =========================
+   PANTALLAS
+========================= */
+
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 40px 5vw;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* =========================
+   PORTADA
+========================= */
+
+#intro {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.intro-card {
+    width: min(950px, 100%);
+    padding: 55px 45px 60px;
+
+    background: rgba(255,255,255,0.96);
+
+    border-radius: 32px;
+
+    box-shadow:
+        0 20px 60px rgba(38,59,43,0.18);
+
+    border:
+        3px solid rgba(230,185,63,0.45);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.intro-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 12px;
+
+    background:
+        repeating-linear-gradient(
+            -45deg,
+            var(--amarillo-seguridad),
+            var(--amarillo-seguridad) 18px,
+            var(--verde-oscuro) 18px,
+            var(--verde-oscuro) 36px
+        );
+}
+
+/* =========================
+   PERSONA SST
+========================= */
+
+.sst-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+    margin-bottom: 25px;
+
+    text-align: left;
+}
+
+.sst-person {
+    position: relative;
+
+    width: 135px;
+    min-width: 135px;
+    height: 190px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Cabeza */
+
+.sst-head {
+    width: 72px;
+    height: 72px;
+
+    background: #e7b98a;
+
+    border-radius: 50%;
+
+    position: relative;
+    z-index: 2;
+
+    border: 4px solid #263b2b;
+}
+
+/* Cabello */
+
+.sst-head::before {
+    content: "";
+
+    position: absolute;
+
+    top: -5px;
+    left: 4px;
+
+    width: 56px;
+    height: 25px;
+
+    background: #3a2a20;
+
+    border-radius: 50% 50% 30% 30%;
+}
+
+/* Ojos */
+
+.sst-head::after {
+    content: "•  •";
+
+    position: absolute;
+
+    top: 30px;
+    left: 18px;
+
+    font-size: 16px;
+
+    letter-spacing: 5px;
+
+    color: #263b2b;
+}
+
+/* Casco */
+
+.sst-helmet {
+    position: absolute;
+
+    top: 0;
+
+    width: 92px;
+    height: 42px;
+
+    background: var(--amarillo-seguridad);
+
+    border-radius: 55px 55px 15px 15px;
+
+    border: 4px solid var(--verde-oscuro);
+
+    z-index: 3;
+}
+
+.sst-helmet::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: -8px;
+    left: -8px;
+
+    width: 100px;
+    height: 12px;
+
+    background: var(--amarillo-seguridad);
+
+    border: 4px solid var(--verde-oscuro);
+
+    border-radius: 20px;
+}
+
+/* Cuerpo / chaleco */
+
+.sst-body {
+    width: 110px;
+    height: 85px;
+
+    background: var(--verde);
+
+    border-radius: 25px 25px 12px 12px;
+
+    border: 4px solid var(--verde-oscuro);
+
+    position: relative;
+    margin-top: 5px;
+}
+
+/* Franjas del chaleco */
+
+.sst-body::before {
+    content: "";
+
+    position: absolute;
+
+    left: 15px;
+    right: 15px;
+
+    top: 35px;
+
+    height: 9px;
+
+    background: var(--amarillo-seguridad);
+
+    border-radius: 5px;
+}
+
+.sst-body::after {
+    content: "SST";
+
+    position: absolute;
+
+    top: 12px;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 18px;
+}
+
+/* =========================
+   GLOBO DE DIÁLOGO
+========================= */
+
+.speech {
+    position: relative;
+
+    max-width: 590px;
+
+    background: var(--verde-oscuro);
+    color: white;
+
+    padding: 22px 25px;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 25px rgba(38,59,43,0.18);
+}
+
+.speech::before {
+    content: "";
+
+    position: absolute;
+
+    left: -14px;
+    top: 38px;
+
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+
+    border-right: 16px solid var(--verde-oscuro);
+}
+
+.speech strong {
+    color: var(--amarillo-seguridad);
+    font-size: 20px;
+}
+
+.speech p {
+    margin: 8px 0 0;
+
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* =========================
+   ICONO BIOLÓGICO
+========================= */
+
+.biohazard {
+    font-size: 70px;
+    margin: 5px 0;
+}
+
+h1 {
+    font-size: clamp(42px, 7vw, 76px);
+
+    margin: 5px 0;
+
+    color: var(--verde-oscuro);
+}
+
+.subtitle {
+    font-size: clamp(24px, 4vw, 38px);
+
+    margin: 0 0 35px;
+
+    color: var(--rojo-riesgo);
+
+    font-weight: bold;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+button {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 16px 30px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: var(--rojo-riesgo);
+
+    color: white;
+
+    box-shadow:
+        0 8px 18px rgba(143,61,61,0.25);
+
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    background: var(--vinotinto);
+}
+
+/* =========================
+   ACTIVIDAD
+========================= */
+
+#game {
+    flex-direction: column;
+    gap: 20px;
+}
+
+.header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.header h2 {
+    margin: 0;
+
+    font-size: 32px;
+
+    color: var(--verde-oscuro);
+}
+
+.progress {
+    margin-top: 8px;
+
+    font-weight: bold;
+
+    color: var(--rojo-riesgo);
+}
+
+.instructions {
+    background: var(--amarillo-claro);
+
+    border-left:
+        7px solid var(--amarillo-seguridad);
+
+    border-radius: 12px;
+
+    padding: 17px 20px;
+
+    box-shadow:
+        0 5px 20px rgba(38,59,43,0.08);
+
+    color: var(--verde-oscuro);
+}
+
+/* =========================
+   SECTORES
+========================= */
+
+.boards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+
+    flex: 1;
+}
+
+.sector {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(38,59,43,0.10);
+
+    min-height: 250px;
+
+    border:
+        3px solid transparent;
+
+    transition: 0.2s;
+}
+
+.sector:hover {
+    border-color:
+        rgba(230,185,63,0.6);
+}
+
+.sector h3 {
+    margin: 0 0 12px;
+
+    color: var(--verde);
+
+    font-size: 22px;
+}
+
+.dropzone {
+    min-height: 150px;
+
+    border:
+        2px dashed var(--borde);
+
+    border-radius: 14px;
+
+    padding: 12px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-content: flex-start;
+
+    gap: 8px;
+
+    background: #faf9f3;
+
+    transition: 0.2s;
+}
+
+.dropzone.over {
+    border-color:
+        var(--amarillo-seguridad);
+
+    background:
+        var(--amarillo-claro);
+}
+
+/* =========================
+   BANCO DE OPCIONES
+========================= */
+
+.bank {
+    background:
+        linear-gradient(
+            135deg,
+            var(--verde-oscuro),
+            var(--verde)
+        );
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    color: white;
+
+    border-top:
+        5px solid var(--amarillo-seguridad);
+}
+
+.bank h3 {
+    margin: 0 0 12px;
+}
+
+.options {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.item {
+    background: white;
+
+    color: var(--verde-oscuro);
+
+    padding: 11px 14px;
+
+    border-radius: 12px;
+
+    cursor: grab;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 3px 8px rgba(0,0,0,0.15);
+
+    user-select: none;
+
+    touch-action: none;
+
+    transition: 0.2s;
+}
+
+.item:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,0.20);
+}
+
+.item:active {
+    cursor: grabbing;
+}
+
+/* Correcto */
+
+.item.correct {
+    background: #dcefdc;
+
+    border:
+        2px solid #4c914c;
+
+    color: #245c2b;
+
+    cursor: default;
+}
+
+/* Incorrecto */
+
+.item.wrong {
+    animation: shake 0.3s;
+
+    border:
+        2px solid var(--rojo-riesgo);
+}
+
+@keyframes shake {
+
+    25% {
+        transform: translateX(-6px);
     }
 
-    /* =====================================================
-       PALETA DE COLORES - RIESGO BIOLÓGICO
-    ===================================================== */
-
-    :root {
-        --verde-oscuro: #263b2b;
-        --verde: #3f6b45;
-        --verde-claro: #dfeade;
-
-        --amarillo-seguridad: #e6b93f;
-        --amarillo-claro: #fff4c7;
-
-        --rojo-riesgo: #8f3d3d;
-        --rojo-claro: #f7dddd;
-
-        --vinotinto: #642f35;
-
-        --crema: #f5f1e8;
-        --blanco: #ffffff;
-
-        --gris: #5f665f;
-        --borde: #c9c8bd;
+    50% {
+        transform: translateX(6px);
     }
 
-
-    body {
-        margin: 0;
-
-        font-family: Arial, Helvetica, sans-serif;
-
-        background:
-            radial-gradient(
-                circle at top left,
-                #e8eadb,
-                transparent 45%
-            ),
-            linear-gradient(
-                135deg,
-                #f5f1e8,
-                #dfe6d8
-            );
-
-        color: var(--verde-oscuro);
-
-        min-height: 100vh;
+    75% {
+        transform: translateX(-6px);
     }
 
-
-    /* =====================================================
-       PANTALLAS
-    ===================================================== */
-
-    .screen {
-        display: none;
-
-        min-height: 100vh;
-
-        padding: 40px 5vw;
+    100% {
+        transform: translateX(0);
     }
+}
 
+/* =========================
+   MENSAJE
+========================= */
 
-    .screen.active {
-        display: flex;
-    }
+#feedback {
+    text-align: center;
 
+    font-weight: bold;
 
-    /* =====================================================
-       PORTADA
-    ===================================================== */
+    min-height: 24px;
 
-    #intro {
-        align-items: center;
-        justify-content: center;
+    font-size: 17px;
+}
 
-        text-align: center;
-    }
+/* =========================
+   FINAL
+========================= */
 
+.success {
+    position: fixed;
 
-    .intro-card {
+    inset: 0;
 
-        width: min(950px, 100%);
+    background:
+        rgba(38,59,43,0.88);
 
-        padding: 55px 45px 60px;
+    display: none;
 
-        background: rgba(255,255,255,0.96);
+    align-items: center;
 
-        border-radius: 32px;
+    justify-content: center;
 
-        box-shadow:
-            0 20px 60px rgba(38,59,43,0.18);
+    padding: 25px;
 
-        border:
-            3px solid rgba(230,185,63,0.45);
+    z-index: 100;
+}
 
-        position: relative;
+.success-card {
+    background: white;
 
-        overflow: hidden;
-    }
+    border-radius: 25px;
 
+    padding: 45px;
 
-    /* Franja superior de seguridad */
+    text-align: center;
 
-    .intro-card::before {
+    max-width: 550px;
 
-        content: "";
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.25);
 
-        position: absolute;
+    border-top:
+        8px solid var(--amarillo-seguridad);
+}
 
-        top: 0;
-        left: 0;
-        right: 0;
+.success-card h2 {
+    color: var(--verde);
 
-        height: 12px;
+    font-size: 36px;
+}
 
-        background:
-            repeating-linear-gradient(
-                -45deg,
-                var(--amarillo-seguridad),
-                var(--amarillo-seguridad) 18px,
-                var(--verde-oscuro) 18px,
-                var(--verde-oscuro) 36px
-            );
-    }
+/* =========================
+   RESPONSIVE
+========================= */
 
-
-    /* =====================================================
-       PERSONA SST
-    ===================================================== */
-
-    .sst-container {
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        gap: 25px;
-
-        margin-bottom: 25px;
-
-        text-align: left;
-    }
-
-
-    /* Persona */
-
-    .sst-person {
-
-        position: relative;
-
-        width: 135px;
-
-        min-width: 135px;
-
-        height: 190px;
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: center;
-
-        justify-content: flex-end;
-    }
-
-
-    /* Cabeza */
-
-    .sst-head {
-
-        width: 72px;
-        height: 72px;
-
-        background: #e7b98a;
-
-        border-radius: 50%;
-
-        position: relative;
-
-        z-index: 2;
-
-        border: 4px solid #263b2b;
-    }
-
-
-    /* Cabello */
-
-    .sst-head::before {
-
-        content: "";
-
-        position: absolute;
-
-        top: -5px;
-        left: 4px;
-
-        width: 56px;
-        height: 25px;
-
-        background: #3a2a20;
-
-        border-radius: 50% 50% 30% 30%;
-    }
-
-
-    /* Ojos */
-
-    .sst-head::after {
-
-        content: "•  •";
-
-        position: absolute;
-
-        top: 30px;
-        left: 18px;
-
-        font-size: 16px;
-
-        letter-spacing: 5px;
-
-        color: #263b2b;
-    }
-
-
-    /* Casco */
-
-    .sst-helmet {
-
-        position: absolute;
-
-        top: 0;
-
-        width: 92px;
-        height: 42px;
-
-        background: var(--amarillo-seguridad);
-
-        border-radius: 55px 55px 15px 15px;
-
-        border: 4px solid var(--verde-oscuro);
-
-        z-index: 3;
-    }
-
-
-    .sst-helmet::after {
-
-        content: "";
-
-        position: absolute;
-
-        bottom: -8px;
-        left: -8px;
-
-        width: 100px;
-        height: 12px;
-
-        background: var(--amarillo-seguridad);
-
-        border: 4px solid var(--verde-oscuro);
-
-        border-radius: 20px;
-    }
-
-
-    /* Cuerpo / chaleco */
-
-    .sst-body {
-
-        width: 110px;
-        height: 85px;
-
-        background: var(--verde);
-
-        border-radius: 25px 25px 12px 12px;
-
-        border: 4px solid var(--verde-oscuro);
-
-        position: relative;
-
-        margin-top: 5px;
-    }
-
-
-    /* Franjas del chaleco */
-
-    .sst-body::before {
-
-        content: "";
-
-        position: absolute;
-
-        left: 15px;
-        right: 15px;
-
-        top: 35px;
-
-        height: 9px;
-
-        background: var(--amarillo-seguridad);
-
-        border-radius: 5px;
-    }
-
-
-    .sst-body::after {
-
-        content: "SST";
-
-        position: absolute;
-
-        top: 12px;
-        left: 0;
-        right: 0;
-
-        text-align: center;
-
-        color: white;
-
-        font-weight: bold;
-
-        font-size: 18px;
-    }
-
-
-    /* =====================================================
-       GLOBO DE DIÁLOGO
-    ===================================================== */
-
-    .speech {
-
-        position: relative;
-
-        max-width: 590px;
-
-        background: var(--verde-oscuro);
-
-        color: white;
-
-        padding: 22px 25px;
-
-        border-radius: 22px;
-
-        box-shadow:
-            0 10px 25px rgba(38,59,43,0.18);
-    }
-
-
-    .speech::before {
-
-        content: "";
-
-        position: absolute;
-
-        left: -14px;
-        top: 38px;
-
-        border-top: 12px solid transparent;
-        border-bottom: 12px solid transparent;
-
-        border-right: 16px solid var(--verde-oscuro);
-    }
-
-
-    .speech strong {
-
-        color: var(--amarillo-seguridad);
-
-        font-size: 20px;
-    }
-
-
-    .speech p {
-
-        margin: 8px 0 0;
-
-        font-size: 18px;
-
-        line-height: 1.5;
-    }
-
-
-    /* =====================================================
-       ICONO BIOLOGICO
-    ===================================================== */
-
-    .biohazard {
-
-        font-size: 70px;
-
-        margin: 5px 0;
-    }
-
-
-    h1 {
-
-        font-size: clamp(42px, 7vw, 76px);
-
-        margin: 5px 0;
-
-        color: var(--verde-oscuro);
-    }
-
-
-    .subtitle {
-
-        font-size: clamp(24px, 4vw, 38px);
-
-        margin: 0 0 35px;
-
-        color: var(--rojo-riesgo);
-
-        font-weight: bold;
-    }
-
-
-    /* =====================================================
-       BOTONES
-    ===================================================== */
-
-    button {
-
-        border: none;
-
-        border-radius: 14px;
-
-        padding: 16px 30px;
-
-        font-size: 18px;
-
-        font-weight: bold;
-
-        cursor: pointer;
-
-        background: var(--rojo-riesgo);
-
-        color: white;
-
-        box-shadow:
-            0 8px 18px rgba(143,61,61,0.25);
-
-        transition: 0.2s;
-    }
-
-
-    button:hover {
-
-        transform: translateY(-2px);
-
-        background: var(--vinotinto);
-    }
-
-
-    /* =====================================================
-       ACTIVIDAD
-    ===================================================== */
-
-    #game {
-
-        flex-direction: column;
-
-        gap: 20px;
-    }
-
-
-    .header {
-
-        display: flex;
-
-        justify-content: space-between;
-
-        align-items: center;
-
-        gap: 20px;
-    }
-
-
-    .header h2 {
-
-        margin: 0;
-
-        font-size: 32px;
-
-        color: var(--verde-oscuro);
-    }
-
-
-    .progress {
-
-        margin-top: 8px;
-
-        font-weight: bold;
-
-        color: var(--rojo-riesgo);
-    }
-
-
-    .instructions {
-
-        background: var(--amarillo-claro);
-
-        border-left:
-            7px solid var(--amarillo-seguridad);
-
-        border-radius: 12px;
-
-        padding: 17px 20px;
-
-        box-shadow:
-            0 5px 20px rgba(38,59,43,0.08);
-
-        color: var(--verde-oscuro);
-    }
-
-
-    /* =====================================================
-       SECTORES
-    ===================================================== */
+@media (max-width: 750px) {
 
     .boards {
-
-        display: grid;
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
-        gap: 18px;
-
-        flex: 1;
+        grid-template-columns: 1fr;
     }
 
-
-    .sector {
-
-        background: white;
-
-        border-radius: 20px;
-
-        padding: 18px;
-
-        box-shadow:
-            0 8px 25px rgba(38,59,43,0.10);
-
-        min-height: 250px;
-
-        border:
-            3px solid transparent;
-
-        transition: 0.2s;
+    .screen {
+        padding: 25px 4vw;
     }
 
-
-    .sector:hover {
-
-        border-color:
-            rgba(230,185,63,0.6);
+    .header {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
-
-    .sector h3 {
-
-        margin: 0 0 12px;
-
-        color: var(--verde);
-
-        font-size: 22px;
+    .sst-container {
+        flex-direction: column;
     }
 
-
-    .dropzone {
-
-        min-height: 150px;
-
-        border:
-            2px dashed var(--borde);
-
-        border-radius: 14px;
-
-        padding: 12px;
-
-        display: flex;
-
-        flex-wrap: wrap;
-
-        align-content: flex-start;
-
-        gap: 8px;
-
-        background: #faf9f3;
-
-        transition: 0.2s;
-    }
-
-
-    .dropzone.over {
-
-        border-color:
-            var(--amarillo-seguridad);
-
-        background:
-            var(--amarillo-claro);
-    }
-
-
-    /* =====================================================
-       BANCO DE OPCIONES
-    ===================================================== */
-
-    .bank {
-
-        background:
-            linear-gradient(
-                135deg,
-                var(--verde-oscuro),
-                var(--verde)
-            );
-
-        border-radius: 20px;
-
-        padding: 18px;
-
-        color: white;
-
-        border-top:
-            5px solid var(--amarillo-seguridad);
-    }
-
-
-    .bank h3 {
-
-        margin: 0 0 12px;
-    }
-
-
-    .options {
-
-        display: flex;
-
-        flex-wrap: wrap;
-
-        gap: 10px;
-    }
-
-
-    .item {
-
-        background: white;
-
-        color: var(--verde-oscuro);
-
-        padding: 11px 14px;
-
-        border-radius: 12px;
-
-        cursor: grab;
-
-        font-weight: bold;
-
-        box-shadow:
-            0 3px 8px rgba(0,0,0,0.15);
-
-        user-select: none;
-
-        touch-action: none;
-
-        transition: 0.2s;
-    }
-
-
-    .item:hover {
-
-        transform: translateY(-2px);
-
-        box-shadow:
-            0 5px 12px rgba(0,0,0,0.20);
-    }
-
-
-    .item:active {
-
-        cursor: grabbing;
-    }
-
-
-    /* Correcto */
-
-    .item.correct {
-
-        background: #dcefdc;
-
-        border:
-            2px solid #4c914c;
-
-        color: #245c2b;
-
-        cursor: default;
-    }
-
-
-    /* Incorrecto */
-
-    .item.wrong {
-
-        animation: shake 0.3s;
-
-        border:
-            2px solid var(--rojo-riesgo);
-    }
-
-
-    @keyframes shake {
-
-        25% {
-            transform: translateX(-6px);
-        }
-
-        50% {
-            transform: translateX(6px);
-        }
-
-        75% {
-            transform: translateX(-6px);
-        }
-
-        100% {
-            transform: translateX(0);
-        }
-    }
-
-
-    /* =====================================================
-       MENSAJE
-    ===================================================== */
-
-    #feedback {
-
+    .speech {
         text-align: center;
-
-        font-weight: bold;
-
-        min-height: 24px;
-
-        font-size: 17px;
     }
 
-
-    /* =====================================================
-       FINAL
-    ===================================================== */
-
-    .success {
-
-        position: fixed;
-
-        inset: 0;
-
-        background:
-            rgba(38,59,43,0.88);
-
+    .speech::before {
         display: none;
-
-        align-items: center;
-
-        justify-content: center;
-
-        padding: 25px;
-
-        z-index: 100;
     }
-
-
-    .success-card {
-
-        background: white;
-
-        border-radius: 25px;
-
-        padding: 45px;
-
-        text-align: center;
-
-        max-width: 550px;
-
-        box-shadow:
-            0 20px 60px rgba(0,0,0,0.25);
-
-        border-top:
-            8px solid var(--amarillo-seguridad);
-    }
-
-
-    .success-card h2 {
-
-        color: var(--verde);
-
-        font-size: 36px;
-    }
-
-
-    /* =====================================================
-       RESPONSIVE
-    ===================================================== */
-
-    @media (max-width: 750px) {
-
-        .boards {
-
-            grid-template-columns: 1fr;
-        }
-
-
-        .screen {
-
-            padding: 25px 4vw;
-        }
-
-
-        .header {
-
-            align-items: flex-start;
-
-            flex-direction: column;
-        }
-
-
-        .sst-container {
-
-            flex-direction: column;
-        }
-
-
-        .speech {
-
-            text-align: center;
-        }
-
-
-        .speech::before {
-
-            display: none;
-        }
-    }
+}
 
 </style>
 </head>
 
-
 <body>
 
-
-<!-- ==================================================
+<!-- =========================
      PÁGINA 1 - INTRODUCCIÓN SST
-================================================== -->
+========================= -->
 
 <section id="intro" class="screen active">
 
     <div class="intro-card">
 
-
-        <!-- PERSONA SST -->
-
         <div class="sst-container">
-
 
             <div class="sst-person">
 
@@ -886,7 +738,6 @@
                 <div class="sst-body"></div>
 
             </div>
-
 
             <div class="speech">
 
@@ -911,41 +762,32 @@
 
         </div>
 
-
-        <!-- ICONO -->
-
         <div class="biohazard">
             ☣️
         </div>
-
 
         <h1>
             Riesgo Biológico
         </h1>
 
-
         <p class="subtitle">
             Vamos a clasificar
         </p>
 
-
         <button onclick="startGame()">
             Continuar con el juego →
         </button>
-
 
     </div>
 
 </section>
 
 
-
-<!-- ==================================================
+<!-- =========================
      PÁGINA 2 - ACTIVIDAD
-================================================== -->
+========================= -->
 
 <section id="game" class="screen">
-
 
     <div class="header">
 
@@ -965,13 +807,11 @@
 
         </div>
 
-
         <button onclick="resetGame()">
             Reiniciar
         </button>
 
     </div>
-
 
 
     <div class="instructions">
@@ -989,15 +829,11 @@
     </div>
 
 
-
-    <!-- ==================================================
+    <!-- =========================
          SECTORES
-    ================================================== -->
+    ========================== -->
 
     <div class="boards">
-
-
-        <!-- SECTOR SALUD -->
 
         <div
             class="sector"
@@ -1012,9 +848,6 @@
         </div>
 
 
-
-        <!-- JARDINES -->
-
         <div
             class="sector"
             data-sector="jardines">
@@ -1028,9 +861,6 @@
         </div>
 
 
-
-        <!-- ALIMENTARIA -->
-
         <div
             class="sector"
             data-sector="alimentos">
@@ -1043,9 +873,6 @@
 
         </div>
 
-
-
-        <!-- ASEO -->
 
         <div
             class="sector"
@@ -1062,10 +889,9 @@
     </div>
 
 
-
-    <!-- ==================================================
+    <!-- =========================
          BANCO DE OPCIONES
-    ================================================== -->
+    ========================== -->
 
     <div class="bank">
 
@@ -1083,14 +909,12 @@
 
     <div id="feedback"></div>
 
-
 </section>
 
 
-
-<!-- ==================================================
+<!-- =========================
      MENSAJE FINAL
-================================================== -->
+========================= -->
 
 <div
     class="success"
@@ -1121,7 +945,6 @@
 </div>
 
 
-
 <script>
 
 /* =====================================================
@@ -1129,8 +952,6 @@
 ===================================================== */
 
 const items = [
-
-    /* SECTOR SALUD */
 
     {
         text: "Elementos de protección personal",
@@ -1147,9 +968,6 @@ const items = [
         sector: "salud"
     },
 
-
-    /* JARDINES INFANTILES */
-
     {
         text: "Higiene",
         sector: "jardines"
@@ -1165,9 +983,6 @@ const items = [
         sector: "jardines"
     },
 
-
-    /* INDUSTRIA ALIMENTARIA */
-
     {
         text: "Separación de alimentos",
         sector: "alimentos"
@@ -1177,9 +992,6 @@ const items = [
         text: "Lavado de manos",
         sector: "alimentos"
     },
-
-
-    /* SECTOR ASEO */
 
     {
         text: "Manejo de basuras",
@@ -1197,7 +1009,6 @@ const items = [
 let placed = 0;
 
 
-
 /* =====================================================
    INICIAR ACTIVIDAD
 ===================================================== */
@@ -1209,17 +1020,14 @@ function startGame() {
         .classList
         .remove("active");
 
-
     document
         .getElementById("game")
         .classList
         .add("active");
 
-
     buildItems();
 
 }
-
 
 
 /* =====================================================
@@ -1230,17 +1038,14 @@ function buildItems() {
 
     placed = 0;
 
-
     document
         .getElementById("progress")
         .textContent =
         "0 de 10 clasificados";
 
-
     document
         .getElementById("feedback")
         .textContent = "";
-
 
     document
         .querySelectorAll(".dropzone")
@@ -1250,10 +1055,8 @@ function buildItems() {
 
         });
 
-
     const options =
         document.getElementById("options");
-
 
     options.innerHTML = "";
 
@@ -1266,34 +1069,23 @@ function buildItems() {
         .sort(() => Math.random() - 0.5)
         .forEach((item, index) => {
 
-
             const element =
                 document.createElement("div");
-
 
             element.className =
                 "item";
 
-
             element.textContent =
                 item.text;
 
-
             element.draggable = true;
-
 
             element.dataset.sector =
                 item.sector;
 
-
             element.id =
                 "item-" + index;
 
-
-
-            /*
-               Comienza el arrastre
-            */
 
             element.addEventListener(
                 "dragstart",
@@ -1316,7 +1108,6 @@ function buildItems() {
 }
 
 
-
 /* =====================================================
    ZONAS DE DESTINO
 ===================================================== */
@@ -1324,7 +1115,6 @@ function buildItems() {
 document
     .querySelectorAll(".dropzone")
     .forEach(zone => {
-
 
         zone.addEventListener(
             "dragover",
@@ -1338,7 +1128,6 @@ document
         );
 
 
-
         zone.addEventListener(
             "dragleave",
             function() {
@@ -1349,20 +1138,14 @@ document
         );
 
 
-
         zone.addEventListener(
             "drop",
             function(event) {
 
                 event.preventDefault();
 
-
                 zone.classList.remove("over");
 
-
-                /*
-                   Obtener elemento
-                */
 
                 const id =
                     event.dataTransfer
@@ -1378,44 +1161,29 @@ document
                 }
 
 
-
-                /*
-                   Sector seleccionado
-                */
-
                 const selectedSector =
                     zone
                         .closest(".sector")
                         .dataset.sector;
 
 
-
-                /*
-                   Sector correcto
-                */
-
                 const correctSector =
                     item.dataset.sector;
 
 
-
-                /* =====================================
+                /* ===============================
                    RESPUESTA CORRECTA
-                ===================================== */
+                =============================== */
 
                 if (
                     correctSector === selectedSector
                 ) {
 
-
                     zone.appendChild(item);
-
 
                     item.classList.add("correct");
 
-
                     item.draggable = false;
-
 
                     placed++;
 
@@ -1439,11 +1207,6 @@ document
                         "#3f6b45";
 
 
-
-                    /*
-                       Actividad terminada
-                    */
-
                     if (placed === 10) {
 
                         setTimeout(
@@ -1465,13 +1228,11 @@ document
                 }
 
 
-
-                /* =====================================
+                /* ===============================
                    RESPUESTA INCORRECTA
-                ===================================== */
+                =============================== */
 
                 else {
-
 
                     item.classList.add("wrong");
 
@@ -1508,7 +1269,6 @@ document
     });
 
 
-
 /* =====================================================
    REINICIAR
 ===================================================== */
@@ -1520,11 +1280,6 @@ function resetGame() {
         .style.display =
         "none";
 
-
-    /*
-       Volver a mostrar portada
-       al reiniciar completamente.
-    */
 
     document
         .getElementById("game")
@@ -1546,4 +1301,3 @@ function resetGame() {
 
 </body>
 </html>
-```
