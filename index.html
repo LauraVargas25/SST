@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -581,4 +582,862 @@
         color: white;
 
         border-top:
-            5px solid var(--ama
+            5px solid var(--amarillo-seguridad);
+    }
+
+
+    .bank h3 {
+
+        margin: 0 0 12px;
+    }
+
+
+    .options {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+    }
+
+
+    .item {
+
+        background: white;
+
+        color: var(--verde-oscuro);
+
+        padding: 11px 14px;
+
+        border-radius: 12px;
+
+        cursor: grab;
+
+        font-weight: bold;
+
+        box-shadow:
+            0 3px 8px rgba(0,0,0,0.15);
+
+        user-select: none;
+
+        touch-action: none;
+
+        transition: 0.2s;
+    }
+
+
+    .item:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 5px 12px rgba(0,0,0,0.20);
+    }
+
+
+    .item:active {
+
+        cursor: grabbing;
+    }
+
+
+    .item.correct {
+
+        background: #dcefdc;
+
+        border:
+            2px solid #4c914c;
+
+        color: #245c2b;
+
+        cursor: default;
+    }
+
+
+    .item.wrong {
+
+        animation: shake 0.3s;
+
+        border:
+            2px solid var(--rojo-riesgo);
+    }
+
+
+    @keyframes shake {
+
+        25% {
+            transform: translateX(-6px);
+        }
+
+        50% {
+            transform: translateX(6px);
+        }
+
+        75% {
+            transform: translateX(-6px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+
+    #feedback {
+
+        text-align: center;
+
+        font-weight: bold;
+
+        min-height: 24px;
+
+        font-size: 17px;
+    }
+
+
+    .success {
+
+        position: fixed;
+
+        inset: 0;
+
+        background:
+            rgba(38,59,43,0.88);
+
+        display: none;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 25px;
+
+        z-index: 100;
+    }
+
+
+    .success-card {
+
+        background: white;
+
+        border-radius: 25px;
+
+        padding: 45px;
+
+        text-align: center;
+
+        max-width: 550px;
+
+        box-shadow:
+            0 20px 60px rgba(0,0,0,0.25);
+
+        border-top:
+            8px solid var(--amarillo-seguridad);
+    }
+
+
+    .success-card h2 {
+
+        color: var(--verde);
+
+        font-size: 36px;
+    }
+
+
+    @media (max-width: 750px) {
+
+        .boards {
+
+            grid-template-columns: 1fr;
+        }
+
+
+        .screen {
+
+            padding: 25px 4vw;
+        }
+
+
+        .header {
+
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+
+        .sst-container {
+
+            flex-direction: column;
+        }
+
+
+        .speech {
+
+            text-align: center;
+        }
+
+
+        .speech::before {
+
+            display: none;
+        }
+    }
+
+</style>
+</head>
+
+
+<body>
+
+
+<section id="intro" class="screen active">
+
+    <div class="intro-card">
+
+        <div class="sst-container">
+
+            <div class="sst-person">
+
+                <div class="sst-helmet"></div>
+
+                <div class="sst-head"></div>
+
+                <div class="sst-body"></div>
+
+            </div>
+
+
+            <div class="speech">
+
+                <strong>
+                    👷‍♀️ Responsable de SST
+                </strong>
+
+                <p>
+                    ¡Hola! Antes de comenzar, recuerda que
+                    identificar correctamente las medidas de
+                    prevención es fundamental para controlar
+                    el riesgo biológico.
+                </p>
+
+                <p>
+                    <b>
+                        Cuando estés listo, continúa con la actividad.
+                    </b>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="biohazard">
+            ☣️
+        </div>
+
+
+        <h1>
+            Riesgo Biológico
+        </h1>
+
+
+        <p class="subtitle">
+            Vamos a clasificar
+        </p>
+
+
+        <button onclick="startGame()">
+            Continuar con el juego →
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<section id="game" class="screen">
+
+
+    <div class="header">
+
+        <div>
+
+            <h2>
+                Clasifica las medidas de prevención
+            </h2>
+
+            <div
+                class="progress"
+                id="progress">
+
+                0 de 13 clasificados
+
+            </div>
+
+        </div>
+
+
+        <button onclick="resetGame()">
+            Reiniciar
+        </button>
+
+    </div>
+
+
+
+    <div class="instructions">
+
+        <strong>
+            🛡️ Instrucciones:
+        </strong>
+
+        Arrastra cada opción de la parte inferior
+        hasta el sector al que corresponde.
+
+        Si la respuesta es correcta,
+        quedará marcada en verde.
+
+    </div>
+
+
+
+    <div class="boards">
+
+
+        <div
+            class="sector"
+            data-sector="salud">
+
+            <h3>
+                🏥 Hospitales
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+
+
+        <div
+            class="sector"
+            data-sector="jardines">
+
+            <h3>
+                🧸 Jardines Infantiles
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+
+
+        <div
+            class="sector"
+            data-sector="alimentos">
+
+            <h3>
+                🍎 Sector de Alimentos
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+
+
+        <div
+            class="sector"
+            data-sector="aseo">
+
+            <h3>
+                🧹 Sector de Aseo
+            </h3>
+
+            <div class="dropzone"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="bank">
+
+        <h3>
+            ☣️ Opciones para arrastrar
+        </h3>
+
+        <div
+            class="options"
+            id="options">
+        </div>
+
+    </div>
+
+
+    <div id="feedback"></div>
+
+
+</section>
+
+
+
+<div
+    class="success"
+    id="success">
+
+    <div class="success-card">
+
+        <div style="font-size:60px">
+            🎉
+        </div>
+
+        <h2>
+            ¡Excelente trabajo!
+        </h2>
+
+        <p>
+            Has clasificado correctamente todas
+            las medidas de prevención del
+            riesgo biológico.
+        </p>
+
+        <button onclick="resetGame()">
+            Volver a intentar
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   CLASIFICACIÓN CORRECTA
+===================================================== */
+
+const items = [
+
+    /* =====================================================
+       HOSPITALES
+    ===================================================== */
+
+    {
+        text: "De acuerdo al nivel de exposición, utilización de guantes, mascarillas, gafas y batas",
+        sector: "salud"
+    },
+
+    {
+        text: "Desechar agujas y bisturís inmediatamente en contenedores rígidos",
+        sector: "salud"
+    },
+
+    {
+        text: "Mantener al día los esquemas de vacunación del personal",
+        sector: "salud"
+    },
+
+
+    /* =====================================================
+       JARDINES INFANTILES
+    ===================================================== */
+
+    {
+        text: "Evitar que los niños compartan vasos, platos y cubiertos",
+        sector: "jardines"
+    },
+
+    {
+        text: "Lavado frecuente de manos tanto en niños como en docentes",
+        sector: "jardines"
+    },
+
+    {
+        text: "Desinfección de juguetes",
+        sector: "jardines"
+    },
+
+
+    /* =====================================================
+       SECTOR DE ALIMENTOS
+    ===================================================== */
+
+    {
+        text: "Lavado de manos frecuente y completo de todo el personal",
+        sector: "alimentos"
+    },
+
+    {
+        text: "Controles de temperatura",
+        sector: "alimentos"
+    },
+
+    {
+        text: "Uso de elementos de seguridad",
+        sector: "alimentos"
+    },
+
+
+    /* =====================================================
+       SECTOR DE ASEO
+    ===================================================== */
+
+    {
+        text: "Uso de calzado antideslizante",
+        sector: "aseo"
+    },
+
+    {
+        text: "Uso de guantes para evitar posibles irritaciones de la piel",
+        sector: "aseo"
+    },
+
+    {
+        text: "Manejo responsable de residuos",
+        sector: "aseo"
+    },
+
+
+    /* =====================================================
+       OPCIÓN VÁLIDA PARA TODOS LOS SECTORES
+    ===================================================== */
+
+    {
+        text: "Uso de elementos de bioseguridad",
+        sector: "todos"
+    }
+
+];
+
+
+let placed = 0;
+
+
+
+/* =====================================================
+   INICIAR ACTIVIDAD
+===================================================== */
+
+function startGame() {
+
+    document
+        .getElementById("intro")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("game")
+        .classList
+        .add("active");
+
+
+    buildItems();
+
+}
+
+
+
+/* =====================================================
+   CREAR OPCIONES
+===================================================== */
+
+function buildItems() {
+
+    placed = 0;
+
+
+    document
+        .getElementById("progress")
+        .textContent =
+        "0 de 13 clasificados";
+
+
+    document
+        .getElementById("feedback")
+        .textContent = "";
+
+
+    document
+        .querySelectorAll(".dropzone")
+        .forEach(zone => {
+
+            zone.innerHTML = "";
+
+        });
+
+
+    const options =
+        document.getElementById("options");
+
+
+    options.innerHTML = "";
+
+
+    [...items]
+        .sort(() => Math.random() - 0.5)
+        .forEach((item, index) => {
+
+
+            const element =
+                document.createElement("div");
+
+
+            element.className =
+                "item";
+
+
+            element.textContent =
+                item.text;
+
+
+            element.draggable = true;
+
+
+            element.dataset.sector =
+                item.sector;
+
+
+            element.id =
+                "item-" + index;
+
+
+
+            element.addEventListener(
+                "dragstart",
+                function(event) {
+
+                    event.dataTransfer
+                        .setData(
+                            "text/plain",
+                            element.id
+                        );
+
+                }
+            );
+
+
+            options.appendChild(element);
+
+        });
+
+}
+
+
+
+/* =====================================================
+   ZONAS DE DESTINO
+===================================================== */
+
+document
+    .querySelectorAll(".dropzone")
+    .forEach(zone => {
+
+
+        zone.addEventListener(
+            "dragover",
+            function(event) {
+
+                event.preventDefault();
+
+                zone.classList.add("over");
+
+            }
+        );
+
+
+
+        zone.addEventListener(
+            "dragleave",
+            function() {
+
+                zone.classList.remove("over");
+
+            }
+        );
+
+
+
+        zone.addEventListener(
+            "drop",
+            function(event) {
+
+                event.preventDefault();
+
+                zone.classList.remove("over");
+
+
+                const id =
+                    event.dataTransfer
+                        .getData("text/plain");
+
+
+                const item =
+                    document.getElementById(id);
+
+
+                if (!item) {
+                    return;
+                }
+
+
+
+                const selectedSector =
+                    zone
+                        .closest(".sector")
+                        .dataset.sector;
+
+
+
+                const correctSector =
+                    item.dataset.sector;
+
+
+
+                /* =====================================
+                   RESPUESTA CORRECTA
+                ===================================== */
+
+                if (
+                    correctSector === selectedSector ||
+                    correctSector === "todos"
+                ) {
+
+
+                    zone.appendChild(item);
+
+
+                    item.classList.add("correct");
+
+
+                    item.draggable = false;
+
+
+                    placed++;
+
+
+                    document
+                        .getElementById("progress")
+                        .textContent =
+                        placed +
+                        " de 13 clasificados";
+
+
+                    document
+                        .getElementById("feedback")
+                        .textContent =
+                        "✓ ¡Correcto! Muy bien.";
+
+
+                    document
+                        .getElementById("feedback")
+                        .style.color =
+                        "#3f6b45";
+
+
+
+                    if (placed === 13) {
+
+                        setTimeout(
+                            function() {
+
+                                document
+                                    .getElementById(
+                                        "success"
+                                    )
+                                    .style.display =
+                                    "flex";
+
+                            },
+                            500
+                        );
+
+                    }
+
+                }
+
+
+
+                /* =====================================
+                   RESPUESTA INCORRECTA
+                ===================================== */
+
+                else {
+
+
+                    item.classList.add("wrong");
+
+
+                    document
+                        .getElementById("feedback")
+                        .textContent =
+                        "✗ No corresponde a este sector. Inténtalo nuevamente.";
+
+
+                    document
+                        .getElementById("feedback")
+                        .style.color =
+                        "#8f3d3d";
+
+
+                    setTimeout(
+                        function() {
+
+                            item.classList.remove(
+                                "wrong"
+                            );
+
+                        },
+                        350
+                    );
+
+                }
+
+            }
+
+        );
+
+    });
+
+
+
+/* =====================================================
+   REINICIAR
+===================================================== */
+
+function resetGame() {
+
+    document
+        .getElementById("success")
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById("game")
+        .classList
+        .remove("active");
+
+
+    document
+        .getElementById("intro")
+        .classList
+        .add("active");
+
+
+    buildItems();
+
+}
+
+</script>
+
+</body>
+</html>
+```
